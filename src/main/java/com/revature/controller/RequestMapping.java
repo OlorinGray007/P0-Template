@@ -35,7 +35,6 @@ public class RequestMapping {
 			ctx.json(e.getMessage()).status(401);
 		});
 		
-		
 		// Get all Planets
 		app.get("api/planets", ctx -> planetController.getAllPlanets(ctx));
 		
@@ -43,7 +42,7 @@ public class RequestMapping {
 		app.get("api/planet/{name}", ctx -> planetController.getPlanetByName(ctx));
 		
 		// Get a planet with matching ID
-		app.get("api/planet/{id}", ctx -> planetController.getPlanetByID(ctx));
+		app.get("api/planet/id/{id}", ctx -> planetController.getPlanetByID(ctx));
 		
 		// Get moons associated with a planet
 		app.get("api/planet/{id}/moons", ctx -> moonController.getPlanetMoons(ctx));
@@ -55,16 +54,14 @@ public class RequestMapping {
 		app.get("api/moon/{name}", ctx -> moonController.getMoonByName(ctx));
 		
 		// Get a moon with matching ID
-		app.get("api/moon/{id}", ctx -> moonController.getMoonById(ctx));
+		app.get("api/moon/id/{id}", ctx -> moonController.getMoonById(ctx));
 		
-
 		// Create a new planet, sending the data in the body as JSON
 		app.post("api/planet", ctx -> planetController.createPlanet(ctx));
 		
 		// Create a new moon, sending the data in the body as JSON
 		app.post("api/moon", ctx -> moonController.createMoon(ctx));
 		
-
 		// Delete a planet and all of its moons
 		app.delete("api/planet/{id}", ctx -> planetController.deletePlanet(ctx));
 		
