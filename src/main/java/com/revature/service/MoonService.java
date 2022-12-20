@@ -1,5 +1,6 @@
 package com.revature.service;
 
+import java.sql.SQLException;
 import java.util.List;
 
 import com.revature.models.Moon;
@@ -13,32 +14,27 @@ public class MoonService {
 		this.dao = new MoonDao();
 	}
 
-	public List<Moon> getAllMoons() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Moon> getAllMoons() throws SQLException{
+		return this.dao.getAllMoons();
 	}
 
-	public Moon getMoonByName(String username, String moonName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Moon getMoonByName(String username, String moonName) throws SQLException{
+		return this.dao.getMoonByName(username, moonName);
 	}
 
-	public Moon getMoonById(String username, int moonId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Moon getMoonById(String username, int moonId) throws SQLException{
+		return this.dao.getMoonById(username, moonId);
 	}
 
-	public Moon createMoon(String username, Moon m) {
-		// TODO Auto-generated method stub
-		return null;
+	public Moon createMoon(String username, Moon m) throws SQLException{
+		return this.dao.createMoon(username, m);
 	}
 
 	public void deleteMoonById(int moonId) {
-		// TODO Auto-generated method stub
+		this.dao.deleteMoonById(moonId);
 	}
 
-	public List<Moon> getMoonsFromPlanet(int planetId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Moon> getMoonsFromPlanet(int planetId) throws SQLException{
+		return this.dao.getMoonsFromPlanet(planetId);
 	}
 }
