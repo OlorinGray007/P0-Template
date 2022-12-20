@@ -33,19 +33,65 @@ public class PlanetDao {
 		}
 	}
 
-	public Planet getPlanetByName(String owner, String planetName) {
-		// TODO Auto-generated method stub
-		return null;
+	public Planet getPlanetByName(String owner, String planetName) throws SQLException{
+		try (Connection con = ConnectionUtil.createConnection()) {
+			String sql = "select * from planets where name = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, planetName);
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+
+			Planet planet = new Planet();
+
+			planet.setId(rs.getInt(1));
+			planet.setName(rs.getString(2));
+			planet.setOwnerId(rs.getInt(3));
+
+			return planet;
+		}
 	}
 
-	public Planet getPlanetById(String username, int planetId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Planet getPlanetById(String username, int planetId) throws SQLException{
+		try (Connection con = ConnectionUtil.createConnection()) {
+			String sql = "select * from planets where id = ?";
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setInt(1, planetId);
+
+			ResultSet rs = ps.executeQuery();
+			rs.next();
+
+			Planet planet = new Planet();
+
+			planet.setId(rs.getInt(1));
+			planet.setName(rs.getString(2));
+			planet.setOwnerId(rs.getInt(3));
+
+			return planet;
+
+		} 
 	}
 
-	public Planet createPlanet(String username, Planet p) {
-		// TODO Auto-generated method stub
-		return null;
+	public Planet createPlanet(String username, Planet p) throws SQLException{
+		try (Connection con = ConnectionUtil.createConnection()){
+			String sql = "insert into planets values (default, ?, ?)";
+			PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+
+			ps.setString(1, p.getName());
+			ps.setInt(2, p.getOwnerId());
+
+			ps.executeUpdate();
+
+			ResultSet rs = ps.getGeneratedKeys();
+
+			rs.next();
+
+			p.setId(rs.getInt(1));
+
+			return p;
+		}
 	}
 
 	public void deletePlanetById(int planetId) {
@@ -69,6 +115,10 @@ public class PlanetDao {
 			System.out.println(e.getMessage());
 		}
 
-		//planetDao.deletePlanetById(2);
+		try {
+			System.out.println(planetDao.getPlanetById("Jerry", 1));
+		} catch (SQLException e){
+			System.out.println(e.getMessage());
+		}
 	}
 }
